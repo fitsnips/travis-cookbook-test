@@ -1,6 +1,6 @@
 name 'travis-cookbook-test'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'Joshua Miller'
+maintainer_email 'cookbooks@fitsnips.net'
 license 'all_rights'
 description 'Installs/Configures travis-cookbook-test'
 long_description 'Installs/Configures travis-cookbook-test'
