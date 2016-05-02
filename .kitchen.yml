@@ -21,5 +21,4 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[travis-cookbook-test::default]
-    attributes:
+      - recipe[default]
