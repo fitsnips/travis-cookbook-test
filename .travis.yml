@@ -20,6 +20,9 @@ env:
   fast_finish: true
 
 before_script:
+  - docker --version
+  - docker info
+  - mount
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
   - /opt/chefdk/embedded/bin/chef gem install kitchen-dokken
@@ -28,12 +31,14 @@ script:
   - /opt/chefdk/embedded/bin/chef --version
   - /opt/chefdk/embedded/bin/rubocop --version
   - /opt/chefdk/embedded/bin/rubocop
+
   - /opt/chefdk/embedded/bin/foodcritic --version
-  - /opt/chefdk/embedded/bin/foodcritic . --exclude spec
+  - /opt/chefdk/embedded/bin/foodcritic . --exclude spec -f any
   - /opt/chefdk/embedded/bin/rspec
+  - echo KITCHEN_YAML=.kitchen.yml kitchen verify ${INSTANCE}
   - KITCHEN_YAML=.kitchen.docker.yml kitchen verify ${INSTANCE}
 
 after_script:
   - docker images
   - docker ps -a
-  - cat .kitchen/logs/kitchen.log
+  - cat .kitchen/logs/*kitchen*.log
